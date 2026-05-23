@@ -153,6 +153,37 @@ patent-disclosure-skill/
 
 ---
 
+## 支持作者
+
+如果这个 Skill 帮您节省了写交底书的时间，可以请我喝杯咖啡☕随缘支持，感谢感谢🙏🙏
+
+<div align="left">
+
+<table>
+<tr>
+<td valign="middle" align="left" style="padding-right: 16px;">
+
+<img src="docs/thanks.jpg" alt="随缘支持" width="280" />
+
+</td>
+<td valign="middle" align="left">
+
+<a href="https://www.star-history.com/?repos=handsomestWei%2Fpatent-disclosure-skill&type=date&legend=top-left">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=handsomestWei/patent-disclosure-skill&type=date&theme=dark&legend=top-left" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=handsomestWei/patent-disclosure-skill&type=date&legend=top-left" />
+    <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=handsomestWei/patent-disclosure-skill&type=date&legend=top-left" width="600" />
+  </picture>
+</a>
+
+</td>
+</tr>
+</table>
+
+</div>
+
+---
+
 <div align="center">
 
 MIT License © [handsomestWei](https://github.com/handsomestWei/)
