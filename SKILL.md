@@ -5,6 +5,7 @@ version: "1.8.9"
 user-invocable: true
 argument-hint: "[可选：项目路径或技术主题关键词]"
 allowed-tools: Read, Write, Edit, Grep, Glob, WebSearch, Bash
+# 各平台工具名以实际环境为准；Codex 环境对应 Read/Write/Edit 等内置工具
 ---
 
 # 专利挖掘与交底书生成
@@ -14,6 +15,12 @@ allowed-tools: Read, Write, Edit, Grep, Glob, WebSearch, Bash
 ## 环境与约定
 
 - **语言**：默认与用户语种一致；专利与法律术语采用行业常用表述。
+- **平台路径**：本技能使用 `$SKILL_DIR` 表示技能根目录。各平台对应：
+  - **Codex**：`$CODEX_SKILL_DIR`（自动回退到技能自身目录）
+  - **Claude Code**：`$CLAUDE_SKILL_DIR`
+  - **opencode / Cursor / 独立使用**：自动检测技能根目录
+  - 详见 `tools/skill_env.sh`
+- **Word 定稿（优先路径）**：使用 `tools/minimax-docx/build_disclosure.sh` + 参考示例模板生成格式精确的 .docx（匹配样式、字体、字号、公式环境）。降级路径：`md_to_docx.py`（基础转换）。详见下表「交底书定稿交付」行。
 - **图示定稿（Step 7）**：**3.2**/**3.4** 用 fenced **mermaid**；执行方式、**`mmdc`** 安装与降级规则见下表「交底书定稿交付」行及 **`tools/README.md`**。
 
 ---
@@ -38,13 +45,16 @@ allowed-tools: Read, Write, Edit, Grep, Glob, WebSearch, Bash
 
 | 任务 | 建议方式 |
 |------|----------|
-| 加载分步指令 | **`Read`** → `${CLAUDE_SKILL_DIR}/prompts/*.md`，见下表 |
+| 加载分步指令 | **`Read`** → `${SKILL_DIR:-${CLAUDE_SKILL_DIR}}/prompts/*.md`，见下表 |
 | 读代码、设计文档、PDF、图片 | 文件读取工具；大仓库先用搜索/语义检索定位再精读 |
-| Word（.docx）→ Markdown + 抽取图片（扫描前） | `Bash` → `python3 ${CLAUDE_SKILL_DIR}/tools/docx_to_md.py --input {path}.docx --output {dir}/{name}.md`；图片默认写入与 `.md` 同级的 `{name}_media/`；需 `pip install -r requirements.txt`（含 mammoth）；复杂版式可改由所内导出 PDF/MD 再扫 |
-| PowerPoint（.pptx）→ Markdown + 抽取图片（扫描前） | `Bash` → `python3 ${CLAUDE_SKILL_DIR}/tools/pptx_to_md.py --input {path}.pptx --output {dir}/{name}.md`；默认 `{name}_media/`；需 `pip install -r requirements.txt`（含 python-pptx）；**旧版 .ppt 不支持**，请先另存为 `.pptx`；图表/SmartArt 等若未以图片形状嵌入则可能仅能从备注或另行导出补全 |
+| Word（.docx）→ Markdown + 抽取图片（扫描前） | `Bash` → `python3 ${SKILL_DIR:-${CLAUDE_SKILL_DIR}}/tools/docx_to_md.py --input {path}.docx --output {dir}/{name}.md`；图片默认写入与 `.md` 同级的 `{name}_media/`；需 `pip install -r requirements.txt`（含 mammoth）；复杂版式可改由所内导出 PDF/MD 再扫 |
+| PowerPoint（.pptx）→ Markdown + 抽取图片（扫描前） | `Bash` → `python3 ${SKILL_DIR:-${CLAUDE_SKILL_DIR}}/tools/pptx_to_md.py --input {path}.pptx --output {dir}/{name}.md`；默认 `{name}_media/`；需 `pip install -r requirements.txt`（含 python-pptx）；**旧版 .ppt 不支持**，请先另存为 `.pptx`；图表/SmartArt 等若未以图片形状嵌入则可能仅能从备注或另行导出补全 |
 | 罗列目录、按名找文件 | 目录列举 / 按文件名搜索 |
 | 联网查新（Step 5） | 执行前 **`Read`** `prompts/prior_art_search.md`。**中国专利公布公告**：优先 **`Bash`** 运行 `cnipa_epub_search.py`；**须在生成命令前**归纳 **2～8 个相关度高的语义块**；**执行时须分多次调用**，**每次仅传一个**词块，**自行按 `pub_number` 合并**多轮 `EPUB_HITS_JSON`（勿单次工具调用堆多个 argv，见该 prompt）。一步拉取+解析、**不写 HTML 落盘**；须 **`pip install -r tools/requirements-cnipa.txt`** 且 **`python -m playwright install chromium`**。**`abstract` 规定必用**同该 prompt。需整句一次 AND 或保存 HTML 时用 `cnipa_epub_crawler.py`；异常或无果再 **WebSearch** |
-| 交底书定稿交付（**须同时** .md + .docx） | **3.2** 系统框图与 **3.4** 流程图均用 fenced ``mermaid``，**不要** ASCII 文字流程图/框图。定稿执行 **`tools/mermaid_render.py`**：mermaid 转 PNG（失败块保留围栏）后默认生成同名 **.docx**；若 Word 失败，按 stderr 提示手动运行 **`md_to_docx.py`**。详见 **`tools/README.md`** |
+| 交底书定稿交付（**须同时** .md + .docx） | **3.2** 系统框图与 **3.4** 流程图均用 fenced ``mermaid``，**不要** ASCII 文字流程图/框图。
+  - **优先路径（精确格式）**：运行 **`tools/mermaid_render.py`**（mermaid → PNG），再用 **`tools/minimax-docx/build_disclosure.sh`** 基于参考示例模板生成格式精确的 .docx（保持参考示例的样式、字体、字号、公式环境）。
+  - **降级路径**：按 stderr 提示手动运行 **`md_to_docx.py`**。
+  - 详见 **`tools/README.md`** 与 **`tools/minimax-docx/README.md`** |
 | 保存交底书路径 | 写入用户指定路径；未指定时可建议 `./outputs/{案件标识}/`；**凡交付的** `.md` / `.docx` 须为 **`{案件名}_{YYYYMMDDHHmmss}`**（§7.3 第 5 点，**含首次定稿与迭代**），勿默认覆盖旧稿；`outputs/` 整目录默认由 `.gitignore` 忽略 |
 | 迭代对话留档 | 每轮 **merger / correction** 交付后，在案件目录追加 **`交底书修订对话记录.md`**（**`tools/iteration_dialog_log.py`** 或等价手工），见 **`prompts/iteration_context.md`** |
 

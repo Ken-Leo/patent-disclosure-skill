@@ -155,7 +155,7 @@ python3 tools/md_to_docx.py -i ./outputs/case/disclosure.md -o ./outputs/case/di
 python3 tools/md_to_docx.py -i a.md -o a.docx --image-max-width-inches 6 --image-max-height-inches 9
 ```
 
-在 Claude Code 中可将 `tools` 换为 `${CLAUDE_SKILL_DIR}/tools`。
+在 Claude Code 中可将 `tools` 换为 `${SKILL_DIR:-${CLAUDE_SKILL_DIR}}/tools`。
 
 ### 支持的 Markdown 子集
 
@@ -233,7 +233,7 @@ python3 tools/docx_to_md.py -i ./raw/spec.docx -o ./knowledge/spec.md --media-di
 - **Markdown 输出在 mammoth 侧标记为 deprecated**，复杂排版可能弱于「先导出 HTML 再转 MD」；专利扫描一般足够。若版式崩坏，建议所内 **另存为 PDF 或纯文本** 再扫。
 - **WMF/EMF** 等 Windows 图元可能需单独处理（见 [mammoth WMF 配方](https://github.com/mwilliamson/python-mammoth)）。
 
-在 Claude Code 中可将 `tools` 换为 `${CLAUDE_SKILL_DIR}/tools`。Windows 无 `python3` 时用 `python`。
+在 Claude Code 中可将 `tools` 换为 `${SKILL_DIR:-${CLAUDE_SKILL_DIR}}/tools`。Windows 无 `python3` 时用 `python`。
 
 ---
 
@@ -270,7 +270,7 @@ python3 tools/pptx_to_md.py -i ./raw/deck.pptx -o ./knowledge/deck.md --media-di
 - **图表、SmartArt、嵌入 OLE** 等若未以普通图片形状存在，**不会**自动栅格化为 PNG；可先在 PowerPoint 中另存为图片或导出 PDF 作补充材料。
 - 文本按形状遍历顺序输出，与视觉阅读顺序可能略有差异。
 
-在 Claude Code 中可将 `tools` 换为 `${CLAUDE_SKILL_DIR}/tools`。Windows 无 `python3` 时用 `python`。
+在 Claude Code 中可将 `tools` 换为 `${SKILL_DIR:-${CLAUDE_SKILL_DIR}}/tools`。Windows 无 `python3` 时用 `python`。
 
 ---
 

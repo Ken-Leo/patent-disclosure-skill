@@ -1,6 +1,26 @@
 # 安装说明
 
 本技能遵循 [AgentSkills](https://agentskills.io) 常见布局：仓库根目录即技能根目录，内含 `SKILL.md`。
+三主平台（Claude Code / Codex / opencode）均支持；可用 `scripts/install.sh` 一键安装。
+
+## 平台安装一览
+
+| 平台 | 安装路径 | 说明 |
+|------|----------|------|
+| **Codex** | `~/.agents/skills/patent-disclosure-skill/` | 全局可用，详见 `.codex/INSTALL.md` |
+| **opencode** | `~/.config/opencode/skills/patent-disclosure-skill/` | 全局可用，详见 `.opencode/INSTALL.md` |
+| **Claude Code** | `~/.claude/skills/patent-disclosure-skill/` | 全局可用，见下方 |
+| **Cursor** | `~/.cursor/skills/patent-disclosure-skill/` | 全局或项目目录，见下方 |
+
+也可用 `bash scripts/install.sh` 自动检测当前平台并安装。
+
+## 一键安装
+
+```bash
+# 自动检测当前平台（Codex / opencode / Claude Code / Cursor）并安装
+bash scripts/install.sh
+```
+
 
 ## Claude Code
 

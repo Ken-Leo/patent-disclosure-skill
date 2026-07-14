@@ -8,6 +8,8 @@
 [![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-mermaid%2Fmmdc-339933.svg)](https://nodejs.org/)
 [![AgentSkills](https://img.shields.io/badge/AgentSkills-Standard-green)](https://agentskills.io)
+[![Codex](https://img.shields.io/badge/Codex-Compatible-blueviolet)](.codex/INSTALL.md)
+[![opencode](https://img.shields.io/badge/opencode-Compatible-8A2BE2)](.opencode/INSTALL.md)
 
 <br>
 

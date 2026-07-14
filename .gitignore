@@ -19,3 +19,7 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# minimax-docx compiled artifacts
+tools/minimax-docx/scripts/dotnet/**/bin/
+tools/minimax-docx/scripts/dotnet/**/obj/
