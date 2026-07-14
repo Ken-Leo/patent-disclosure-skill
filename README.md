@@ -59,19 +59,31 @@
 
 ## 安装
 
-### Claude Code
+本技能支持 **Codex**、**opencode**、**Claude Code** 和 **Cursor** 四大平台。
 
-> 请在 **git 仓库根目录** 或全局 skills 路径下放置本目录，使 `SKILL.md` 位于技能文件夹根级（与 [INSTALL.md](INSTALL.md) 一致）。
+### 一键安装
 
 ```bash
-# 示例：安装到当前项目的 skills 目录
-mkdir -p .claude/skills
-git clone <本仓库 URL> .claude/skills/patent-disclosure-skill
+# 克隆仓库
+git clone https://github.com/handsomestWei/patent-disclosure-skill.git
+
+# 自动检测当前平台并安装到对应路径
+bash scripts/install.sh
 ```
 
-### Cursor
+### 按平台安装
 
-将本仓库完整内容放到 Cursor 约定的 skills 路径（见 [INSTALL.md](INSTALL.md) 表格），重启后在 **Settings → Rules** 中确认技能已被发现。
+| 平台 | 安装路径 | 快速命令 |
+|------|----------|----------|
+| **Codex** | `~/.agents/skills/patent-disclosure-skill/` | `mkdir -p ~/.agents/skills && ln -s $(pwd) ~/.agents/skills/patent-disclosure-skill` |
+| **opencode** | `~/.config/opencode/skills/patent-disclosure-skill/` | `mkdir -p ~/.config/opencode/skills && ln -s $(pwd) ~/.config/opencode/skills/patent-disclosure-skill` |
+| **Claude Code** | `~/.claude/skills/patent-disclosure-skill/` | `mkdir -p ~/.claude/skills && ln -s $(pwd) ~/.claude/skills/patent-disclosure-skill` |
+| **Cursor** | `~/.cursor/skills/patent-disclosure-skill/` | `mkdir -p ~/.cursor/skills && ln -s $(pwd) ~/.cursor/skills/patent-disclosure-skill` |
+
+安装后重启对应工具即可自动发现技能。详细说明见各平台指南：
+- [Codex 安装指南](.codex/INSTALL.md)
+- [opencode 安装指南](.opencode/INSTALL.md)
+- [通用安装说明](INSTALL.md)
 
 ### 依赖
 
@@ -85,6 +97,8 @@ pip install -r requirements.txt
 pip install -r tools/requirements-cnipa.txt
 python -m playwright install chromium
 ```
+
+**Word 精确格式输出**（优先路径）需 dotnet SDK 8.0+（macOS: `brew install --cask dotnet-sdk`），详见 `tools/minimax-docx/README.md`。
 
 图示定稿另需 **Node.js**；在 `tools/` 下执行 `npm install` 或使用 `npx mmdc`（详见 [tools/README.md](tools/README.md)）。
 
