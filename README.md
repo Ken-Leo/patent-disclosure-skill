@@ -88,6 +88,19 @@ python -m playwright install chromium
 
 图示定稿另需 **Node.js**；在 `tools/` 下执行 `npm install` 或使用 `npx mmdc`（详见 [tools/README.md](tools/README.md)）。
 
+**Word 精确格式输出**（优先路径）需 dotnet SDK 8.0+（macOS: `brew install --cask dotnet-sdk`），详见 `tools/minimax-docx/README.md`。
+
+### 多平台安装
+
+本技能还支持 **Codex** 和 **opencode**，可用以下方式快速安装到对应路径：
+
+| 平台 | 安装路径 | 快速命令 |
+|------|----------|----------|
+| **Codex** | `~/.agents/skills/patent-disclosure-skill/` | `mkdir -p ~/.agents/skills && ln -s $(pwd) ~/.agents/skills/patent-disclosure-skill` |
+| **opencode** | `~/.config/opencode/skills/patent-disclosure-skill/` | `mkdir -p ~/.config/opencode/skills && ln -s $(pwd) ~/.config/opencode/skills/patent-disclosure-skill` |
+
+也可用 `bash scripts/install.sh` 一键安装。详细指南见 [.codex/INSTALL.md](.codex/INSTALL.md)、[.opencode/INSTALL.md](.opencode/INSTALL.md)。
+
 ---
 
 ## 使用
