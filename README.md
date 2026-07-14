@@ -169,7 +169,7 @@ patent-disclosure-skill/
 ## 参考文档
 
 - [技能入口与 Agent 流程](SKILL.md)（触发条件、`prompts/` 映射、工具表）
-- [详细安装说明](INSTALL.md)（Claude Code / Cursor 路径）
+- [详细安装说明](INSTALL.md)（Codex / opencode / Claude Code / Cursor 路径）
 - [图示与转换脚本](tools/README.md)（mermaid / mmdc、Word 导出、国知局 epub 查新工具）
 - [示例案件与原材料说明](examples/README.md)
 - [产品流程与目录约定](docs/PRD.md)
