@@ -7,6 +7,7 @@ var rootCommand = new RootCommand("minimax-docx: OpenXML document generation and
 rootCommand.Add(CreateCommand.Create());
 rootCommand.Add(EditContentCommand.Create());
 rootCommand.Add(ApplyTemplateCommand.Create());
+rootCommand.Add(BaseReplaceCommand.Create()); // C-2 Base-Replace
 
 // Tool commands
 rootCommand.Add(ValidateCommand.Create());
