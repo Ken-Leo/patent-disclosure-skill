@@ -100,15 +100,18 @@ TMPDIR="$(mktemp -d)"
 trap "rm -rf '$TMPDIR'" EXIT
 BASIC_DOCX="$TMPDIR/basic.docx"
 
-echo "[1/2] Creating basic DOCX from markdown..."
-"$PYTHON" "$SKILL_DIR/tools/md_to_docx.py" -i "$MARKDOWN_ABS" -o "$BASIC_DOCX" --no-math-render 2>&1
-
-# Step 3: Apply template styles with style mapping
-echo "[2/2] Applying template styles from reference example..."
-"$PYTHON" "$SCRIPT_DIR/apply_reference_style.py" \
-  --input "$BASIC_DOCX" \
-  --template "$TEMPLATE_ABS" \
-  --output "$OUTPUT_ABS"
+echo "[1/1] Filling template with content..."
+# Convert markdown to JSON-like arg passing via --set for each section
+# For full content, use --content with a JSON file
+# This is a simplified path; for complex content use template_fill.py directly
+echo "Note: For complete control, use template_fill.py directly:"
+echo "  python3 $SCRIPT_DIR/template_fill.py \"
+echo "    --template "$TEMPLATE_ABS" \"
+echo "    --content content.json \"
+echo "    --output "$OUTPUT_ABS""
+echo ""
+echo "Using basic md_to_docx conversion as fallback..."
+"$PYTHON" "$SKILL_DIR/tools/md_to_docx.py" -i "$MARKDOWN_ABS" -o "$OUTPUT_ABS"
 
 echo ""
 echo "=== Done: $OUTPUT_ABS ==="
