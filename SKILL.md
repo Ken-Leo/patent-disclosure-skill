@@ -52,9 +52,10 @@ allowed-tools: Read, Write, Edit, Grep, Glob, WebSearch, Bash
 | 罗列目录、按名找文件 | 目录列举 / 按文件名搜索 |
 | 联网查新（Step 5） | 执行前 **`Read`** `prompts/prior_art_search.md`。**中国专利公布公告**：优先 **`Bash`** 运行 `cnipa_epub_search.py`；**须在生成命令前**归纳 **2～8 个相关度高的语义块**；**执行时须分多次调用**，**每次仅传一个**词块，**自行按 `pub_number` 合并**多轮 `EPUB_HITS_JSON`（勿单次工具调用堆多个 argv，见该 prompt）。一步拉取+解析、**不写 HTML 落盘**；须 **`pip install -r tools/requirements-cnipa.txt`** 且 **`python -m playwright install chromium`**。**`abstract` 规定必用**同该 prompt。需整句一次 AND 或保存 HTML 时用 `cnipa_epub_crawler.py`；异常或无果再 **WebSearch** |
 | 交底书定稿交付（**直接 DOCX**） | **3.2** 系统框图与 **3.4** 流程图均用 fenced ``mermaid``，**不要** ASCII 文字流程图/框图。
-  - **优先路径（精确格式）**：运行 **`tools/mermaid_render.py`**（mermaid → PNG），再用 **`tools/minimax-docx/template_fill.py`** 以参考示例为模板直接替换内容（不改变字体、字号、行距、分节等任何格式）。
+  - **Python 版（快速使用）**：`python3 tools/minimax-docx/template_fill.py` – 无需 dotnet，deepcopy 克隆保留格式。
+  - **C# 版（格式更精确）**：`dotnet run --project tools/minimax-docx/scripts/dotnet/MiniMaxAIDocx.Cli -- base-replace` – 需 dotnet 8.0+，in-place 替换保留完整原格式。
   - **降级路径**：按 stderr 提示手动运行 **`md_to_docx.py`**。
-  - 详见 **`tools/README.md`** 与 **`tools/minimax-docx/README.md`** |
+  - 详见 **`tools/minimax-docx/README.md`** |
 | 保存交底书路径 | 写入用户指定路径；未指定时可建议 `./outputs/{案件标识}/`；**凡交付的** `.md` / `.docx` 须为 **`{案件名}_{YYYYMMDDHHmmss}`**（§7.3 第 5 点，**含首次定稿与迭代**），勿默认覆盖旧稿；`outputs/` 整目录默认由 `.gitignore` 忽略 |
 | 迭代对话留档 | 每轮 **merger / correction** 交付后，在案件目录追加 **`交底书修订对话记录.md`**（**`tools/iteration_dialog_log.py`** 或等价手工），见 **`prompts/iteration_context.md`** |
 
