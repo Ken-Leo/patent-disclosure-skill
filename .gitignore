@@ -23,3 +23,6 @@ Thumbs.db
 # minimax-docx compiled artifacts
 tools/minimax-docx/scripts/dotnet/**/bin/
 tools/minimax-docx/scripts/dotnet/**/obj/
+
+# Math test artifacts
+tests/_math_test_figures/
