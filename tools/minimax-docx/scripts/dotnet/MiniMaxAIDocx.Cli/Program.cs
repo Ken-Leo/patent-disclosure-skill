@@ -3,13 +3,11 @@ using MiniMaxAIDocx.Core.Commands;
 
 var rootCommand = new RootCommand("minimax-docx: OpenXML document generation and manipulation CLI");
 
-// Scenario commands
 rootCommand.Add(CreateCommand.Create());
 rootCommand.Add(EditContentCommand.Create());
 rootCommand.Add(ApplyTemplateCommand.Create());
-rootCommand.Add(BaseReplaceCommand.Create()); // C-2 Base-Replace
+rootCommand.Add(BaseReplaceCommand.Create());
 
-// Tool commands
 rootCommand.Add(ValidateCommand.Create());
 rootCommand.Add(MergeRunsCommand.Create());
 rootCommand.Add(FixOrderCommand.Create());
